@@ -1,7 +1,7 @@
 # cvwsoc
 Core-V Wally SoC (extended Core-V Wally)
 
-In this project, I've extended Core-V Wally core/SoC (https://github.com/openhwgroup/cvw) with additional components needed to run Doom on the FPGA boards I have available.
+In this test project, I've extended Core-V Wally core/SoC (https://github.com/openhwgroup/cvw) with additional components needed to run Doom on the FPGA boards I have available.
 
 # Demo
 
@@ -14,6 +14,13 @@ Asciinema of boot process over serial:
 
 
 ## Doom
+
+See the video: 
+
+[![Watch the video](https://img.youtube.com/vi/7HBiZ0tc0Uk/default.jpg)](https://youtu.be/7HBiZ0tc0Uk)
+
+
+Console:
 
     # /usr/bin/doom-short-demo.sh
     Starting D_DoomMain
@@ -57,7 +64,9 @@ Asciinema of boot process over serial:
     Ready to read keycodes. Press Backspace to exit.
     timed 558 gametics in 2845 realtics (6.864675 fps)
 
-    
+
+
+*Remark*: for now audio would need to be with a USB audio card (not tested, drivers not in the Kernel build).
 
 
 ## Boards supported
@@ -96,16 +105,29 @@ Not supported yet:
 
 ## Build steps (Nexys A7)
 
- I don't have an Arty A7, so 
+ I don't have an Arty A7 board, so the work was done on a Nexys A7 board: https://github.com/openhwgroup/cvw/pull/1613
+
+ Repo/branch for gateware and software: https://github.com/juanschroeder/cvw/tree/nexysa7_usb
+ 
+ Gateware: fpga/generator# make nexysa7
+ Buildroot: use 'wally_nexysa7_defconfig'
 
 
 # Future steps
 
-Future plans include:
+Future plans:
+- Lots of cleanup needed
+- Try on the Genesys 2 board
 - Add DAC for Doom audio (with limited on-board option)
 - Add an SDIO peripheral for faster storage operations (boot, rootfs) compared to SPI
-- Substitute Xilinx MIG with LiteDRAM_ https://github.com/enjoy-digital/litedram
-- Substitute other AXI peripherals with PULP AXI components
-- 
+- Substitute Xilinx MIG with open source LiteDRAM_ https://github.com/enjoy-digital/litedram
+- Substitute other AXI peripherals with open source PULP AXI equivalents
+- etc
 
 
+# Credits
+- Core-V Wally: https://github.com/openhwgroup/cvw
+- LiteEth: https://github.com/enjoy-digital/liteeth
+- SpinalHDL USB OHCI host
+- PULP project: https://github.com/pulp
+- Opencores: opencores.org, https://github.com/klyone/opencores-ip
