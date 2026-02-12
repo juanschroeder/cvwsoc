@@ -107,9 +107,12 @@ Not supported yet:
 
  I don't have an Arty A7 board, so the work was done on a Nexys A7 board: https://github.com/openhwgroup/cvw/pull/1613
 
- Repo/branch for gateware and software: https://github.com/juanschroeder/cvw/tree/nexysa7_usb
+ Repo/branch for gateware and software: https://github.com/juanschroeder/cvw/tree/cvwsoc
  
- Gateware: fpga/generator# make nexysa7
+ Gateware: 
+ 
+     fpga/generator# make nexysa7
+     
  Buildroot: use 'wally_nexysa7_defconfig'
 
 
@@ -128,6 +131,6 @@ Future plans:
 # Credits
 - Core-V Wally: https://github.com/openhwgroup/cvw
 - LiteEth: https://github.com/enjoy-digital/liteeth
-- SpinalHDL USB OHCI host
+- SpinalHDL USB OHCI host: https://spinalhdl.github.io/SpinalDoc-RTD/master/SpinalHDL/Libraries/Com/usb_ohci.html
 - PULP project: https://github.com/pulp
 - Opencores: opencores.org, https://github.com/klyone/opencores-ip
