@@ -7,7 +7,7 @@ I've extended Core-V Wally core/SoC (https://github.com/openhwgroup/cvw) with ad
 ## Features
 - 32/64 bits CPUs
 - Yocto-based Linux images
-- SDHCI, USB, Ethernet, 
+- Open IPs: SDHCI, USB, Ethernet, VGA, SPI, DDR2, DDR3, etc.
 
 ## Hw
 
@@ -120,7 +120,7 @@ Console:
     timed 3623 gametics in 6945 realtics (18.258459 fps)
 
 
-## Doom on the Nexys A7
+## Doom on the Nexys A7 [Deprecated: needs to be updated for Yocto images]
 
 See the video: 
 
@@ -226,6 +226,67 @@ Remarks:
  Buildroot: use 'wally_nexysa7_defconfig'
 
 
+
+# Simulation (QEMU, Verilator)
+
+It allows running different combinations of simulation/emulation, boot stages and boot media.
+
+General remarks:
+- Main Makefile: sim/Makefile.cvwsoc. Much of it is LLM generated so not the most readable.
+- All boot stages are possible to run: bootrom, OpenSBI, u-boot, Kernel, userspace.
+- Only RAM and a potential 'Dummy' peripheral are added to the Verilator testbench for now. Any extra peripheral to be tested can be connected as the 'dummy' peripheral (this needs DTB override and potentially other changes in the binaries/images).
+- Simulation is slow. Skip stages when possible.
+- Yocto images: for simulation, images in corresponding Yocto 'deploy' folder are used.
+    - Depending on the target you'll need different images.
+    - The images must be in the expected deploy folder.
+    - You should override CVWSOC_DEPLOY_ROOT for this purpose. $(CVWSOC_DEPLOY_ROOT)/$(CVWSOC_MACHINE) is the 'deploy' folder for the corresponding machine
+- RV32 (32-bits) can be selected by setting RV32=1. By default RV32=0
+- The 'linux' images skip u-boot by adding a 'stup' that jumps directly to Linux.
+- Runs without BOOTROM=1 (default) add a stub at reset address (0x1000) that jumps to OpenSBI. Disabled by default. Bootrom run not possible in QEMU but possible in Verilator.
+    - Remark: There is an issue with u-boot and when starting from bootrom. To be fixed.
+- Boot from SD card (SDHCI=1). When enabled it would use the 'wic' image generated in Yocto. Without SD card preloaded ramdisk is used.
+- Not all combinations have been tested and not all possible combinations work.
+- Tracing Verilator simulation is possible. Traced signals must be at the 'top' level of the tetstench
+- Serial interaction with the verilated run is possible. There's a /dev/pts/NN device created at runtime for this purpose. There is a one character delay issue that still has to be fixed
+
+
+Different combinations are possible using Yocto images all of them work for 32 and 64 bits CPUs using variables passed to the Makefile when needed:
+- Boot 'virt/virt32' image in QEMU 'virt' RV32/RV64 targets
+- Boot running in Verilator testbench.
+- Preloaded images:
+    - Generate 'preloaded' image to use later: speed up simulation by preloading all RAM contents.
+    - This is the default for Verilator runs.
+    - Boot preloaded image in QEMU
+- Trace verilation run: TRACE=1, TRACE_MODE=sv (to be improved)
+- Some things can make sense to override for testing
+    - override DTB in Verilator run (overwrites content in preloaded image)
+    - Override u-booot DTB in Verilator run
+    - override DEPLOY folder
+    - etc
+    - bus width (AHBW=64)
+    - Trace filename prefix
+- etc
+
+
+## Examples
+
+Test Yocto OpenSBI and Kernel generated image in QEMU:
+```
+$ make -f sim/verilator/Makefile.cvwsoc clean qemu-linux RV32=0
+```
+
+The same but including u-boot:
+```
+$ make -f sim/verilator/Makefile.cvwsoc clean qemu-uboot
+```
+
+Run Linux verilation for RV64 with SD card emulation, starting from bootrom and overriding OpenSBI/Linux DTB on 'Verilator' runtime stage. 'fpgagenessys2soc' config is used:
+```
+$ make -f sim/verilator/Makefile.cvwsoc clean run-cvwsoc-linux RV32=0 SDHCI=1 CVWSOC_VERILATOR_DTB=/tmp/wally-virtsoc-linux.dtb.dts.dtb  BOOTROM=1 CONFIG=fpgagenesys2soc TRACE=1 TRACE_MODE=sv
+```
+
+
+
 # Future steps
 
 Future plans:
@@ -253,6 +314,8 @@ Future plans:
 - CPU frequency speedup
 - etc
 
+
+  
 
 # Credits
 - Core-V Wally: https://github.com/openhwgroup/cvw
