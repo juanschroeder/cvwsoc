@@ -59,6 +59,8 @@ Asciinema of boot process over serial:
 
 ## Doom on the Genesys 2 (latest)
 
+[![Watch the video](https://img.youtube.com/vi/BBkvet0Lh4Y/default.jpg)](https://youtu.be/BBkvet0Lh4Y)
+
 ### Configuration
 
 It was tested in the fastes known configuration, with open source components:
