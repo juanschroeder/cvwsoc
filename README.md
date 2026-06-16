@@ -7,7 +7,7 @@ I've extended Core-V Wally core/SoC (https://github.com/openhwgroup/cvw) with ad
 ## Features
 - 32/64 bits CPUs
 - Yocto-based Linux images
-- Open IPs: SDHCI, USB, Ethernet, VGA, SPI, DDR2, DDR3, etc.
+- Open IPs: SDHCI, USB, Ethernet, VGA, SPI, DDR2, DDR3 (LiteDRAM, UberDDR3), etc. More to come.
 
 ## Hw
 
@@ -57,7 +57,7 @@ Asciinema of boot process over serial:
 # Doom Demos in FPGA boards
 
 
-## Doom on the Genesys 2 (latest)
+## Doom on the Genesys 2 (demo)
 
 [![Watch the video](https://img.youtube.com/vi/BBkvet0Lh4Y/default.jpg)](https://youtu.be/BBkvet0Lh4Y)
 
@@ -120,6 +120,25 @@ Console:
     Using keyboard on /dev/tty0.
     Ready to read keycodes. Press Backspace to exit.
     timed 3623 gametics in 6945 realtics (18.258459 fps)
+
+## Doom on the Genesys 2 (live, with sound)
+
+For the moment, the only sound configuration tested is with an USB audio card.
+
+Setup tested:
+- USB audio card USB 1.1 compatible (Tested: 'C-Media Electronics Inc. USB Audio Device')
+- USB keyboard (e.g. standard Logitech wireless USB keyboard)
+
+To be able to play with the keyboard the easiest is to start 'fbdoom' in the framebuffer console (with the USB keyboard) and not in the serial console
+
+Command:
+```
+SDL_AUDIODRIVER=dsp SDL_PATH_DSP=/dev/dsp SDL_AUDIO_BUFFER_SIZE=4096 fbdoom -iwad /usr/share/games/doom/freedm.wad -nomusic -timedemo demo4
+```
+
+Remarks:
+- Result: about 12 fps. To be improved.
+- Using default audio device (e.g.AUDIODEV=hw:0,0) gives worse performance
 
 
 ## Doom on the Nexys A7 [Deprecated: needs to be updated for Yocto images]
@@ -188,13 +207,16 @@ Boards supported and/or planned :
   - Qmtech Kintex-7
  
 Necessary extra hardware:
-- Digilent micro SD card PMOD (Nexys A7; will be removed soon)
+- Digilent micro SD card PMOD (only for Nexys A7; will be removed soon)
 - USB PMOD
   - https://github.com/Dolu1990/pmod_usb_host_x4/tree/main
   - https://github.com/nand2mario/usb_host_pmod
-  - This store made it avaiable for purchase in 2025 when I requested it (no stock now?): https://miusecntech-muselab.aliexpress.com/store/5940159?
+  - This store made it avaiable for purchase in 2025 when I requested it (no stock now?):
+      - [https://www.aliexpress.com/store/5940159](https://www.aliexpress.com/store/5940159)
+      - Alternative: [https://nl.aliexpress.com/item/1005010786670759.html](https://www.aliexpress.com/item/1005010786670759.html)
 - Optional: USB keyboard (tried Logitech wireless Keyboard)
-- Remark: Qmtech Kintex-7 board will need more PMOD stuff.
+- Optional: USB audio card. Tested: https://www.amazon.de/-/en/SABRENT-External-Headphone-Adapter-AU-MMSA/dp/B00IRVQ0F8/
+- Remark: Qmtech Kintex-7 board has no peripherals and will need more PMODs.
 
 ## Features
 
