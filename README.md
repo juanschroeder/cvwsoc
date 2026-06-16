@@ -9,7 +9,7 @@ I've extended Core-V Wally core/SoC (https://github.com/openhwgroup/cvw) with ad
 - Yocto-based Linux images
 - Open IPs: SDHCI, USB, Ethernet, VGA, SPI, DDR2, DDR3 (LiteDRAM, UberDDR3), etc. More to come.
 
-## Hw
+## Gateware (Vivado)
 
 Repo: https://github.com/juanschroeder/cvw/tree/cvwsoc
 
@@ -34,7 +34,7 @@ Remarks:
 * For the moment debugging can be done with Vivado ILA. JTAG debugging and Manta tracing will come at some point.
 
 
-### Hw (openXC7, only for Genesys 2 for now)
+### Gateware (openXC7, only for Genesys 2 for now)
 
 ```
 cd fpga/generatorxc7
@@ -42,7 +42,7 @@ make docker-bit
 ```
 
 
-## Sw
+## Software
 
 Software images are Yocto based and can be generated using this Kas based project: https://github.com/juanschroeder/kas-cvwsoc. See README for more details.
 
