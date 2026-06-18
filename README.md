@@ -57,28 +57,25 @@ Asciinema of boot process over serial:
 # Doom Demos in FPGA boards
 
 
-## Doom on the Genesys 2 (demo)
+## Doom on the Genesys 2 (demo, no sound)
 
 [![Watch the video](https://img.youtube.com/vi/BBkvet0Lh4Y/default.jpg)](https://youtu.be/BBkvet0Lh4Y)
 
 ### Configuration
 
-It was tested in the fastes known configuration, with open source components:
+It was tested in the fastest known configuration, with open source IPs:
 
-- 18-19 fps at 320x240
+- 17-19 fps at 320x240
 - CPU: RV32GC with 64-bits bus (XLEN=32, AHBW=64) @ 55 MHz
 - DDR: UberDDR3 controller
 - Storage: SD card on SDHCI
-- USB: OHCI 1.1 (with issues)
+- USB: OHCI 1.1
 - Ethernet: LiteEthernet
 - etc
 
-Remarks: 
-- There are still memory coherency issues with USB on RV32 so it's not 'live' demo.
-
 Console:
 
-    # fbdoom -iwad /usr/share/games/doom/freedm.wad -timedemo demo4
+    # fbdoom -iwad /usr/share/games/doom/freedm.wad -nosound -timedemo demo4
     Starting D_DoomMain
                                    FDoom 0.1
     Z_Init: Init zone memory allocation daemon. 
@@ -120,6 +117,8 @@ Console:
     Using keyboard on /dev/tty0.
     Ready to read keycodes. Press Backspace to exit.
     timed 3623 gametics in 6945 realtics (18.258459 fps)
+
+
 
 ## Doom on the Genesys 2 (live, with sound)
 
