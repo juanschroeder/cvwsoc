@@ -344,7 +344,7 @@ Future plans:
 
   
 
-# Credits
+# Credits (IPs and tools used)
 - Core-V Wally: https://github.com/openhwgroup/cvw
 - LiteEth: https://github.com/enjoy-digital/liteeth
 - SpinalHDL USB OHCI host: https://spinalhdl.github.io/SpinalDoc-RTD/master/SpinalHDL/Libraries/Com/usb_ohci.html
@@ -354,6 +354,7 @@ Future plans:
 - AHBl-to-AXI4 bridge: https://github.com/juanschroeder/ahbl-to-axi4 (custom)
 - LiteDRAM: https://github.com/enjoy-digital/litedram, https://github.com/enjoy-digital/litex
 - UberDDR3: https://github.com/AngeloJacobo/UberDDR3
+- iDMA: https://github.com/pulp-platform/iDMA
 - Verilator: https://github.com/verilator/verilator
 - QEMU: https://github.com/qemu/QEMU
 - Manta: https://github.com/fischermoseley/manta
