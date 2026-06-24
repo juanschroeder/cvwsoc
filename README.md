@@ -7,7 +7,7 @@ I've extended Core-V Wally core/SoC (https://github.com/openhwgroup/cvw) with ad
 ## Features
 - 32/64 bits CPUs
 - Yocto-based Linux images
-- Open IPs: SDHCI, USB, Ethernet, VGA, SPI, DDR2, DDR3 (LiteDRAM, UberDDR3), etc. More to come.
+- Open source IPs: SDHCI, DMA, USB 1.1, Ethernet, VGA, SPI, DDR2, DDR3 (LiteDRAM, UberDDR3), etc. More to come.
 
 ## Gateware (Vivado)
 
@@ -308,20 +308,24 @@ Run Linux verilation for RV64 with SD card emulation, starting from bootrom and 
 $ make -f sim/verilator/Makefile.cvwsoc clean run-cvwsoc-linux RV32=0 SDHCI=1 CVWSOC_VERILATOR_DTB=/tmp/wally-virtsoc-linux.dtb.dts.dtb  BOOTROM=1 CONFIG=fpgagenesys2soc TRACE=1 TRACE_MODE=sv
 ```
 
-
+Remarks:
+- iDMA can be enabled manually in the testbench
+- Models for other peripherals will be integrated later.
 
 # Future steps
 
 Future plans:
 - Lots of cleanup needed
 - OpenXC7 build improvements (currently at 12.5 MHz)
+- AXI Stream
+- I2S
 - Nexys A7:
     - Add DAC for Doom audio (with limited on-board option)
     - Add SDHCI support
 - Genesys 2:
-    - audio support
+    - I2S audio support
     - HDMI support
-    - mini display
+    - mini display support
 - Boards:
     - Qmtech Kintex-7 support
     - GateMate board?
