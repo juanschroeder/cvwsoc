@@ -261,6 +261,7 @@ It allows running different combinations of simulation/emulation, boot stages an
     - AXI_RAM. UberDDR3 simulation would be possible but too slow
     - SDHCI
     - DMA
+    - DUMMY peripheral mapped to 0x20000000-0x2003FFFF with IRQ 16 can be connected to the AXI bus without any further Hw changes.
     - More to come: USB, etc.
 - Console interaction with simulation possible through pseudo terminal (PTS)
 - Boot sequence: Bootrom (optional), OpenSBI, u-boot (optional, Linux
