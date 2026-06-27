@@ -254,7 +254,24 @@ Remarks:
 
 It allows running different combinations of simulation/emulation, boot stages and boot media.
 
-General remarks:
+## Summary
+- Simulate base SoC + real bus infrastructure + some AXI peripherals
+- XLEN:{32, 64}, AHBW:{32, 64}. Core-V Wally configs
+- AXI peripherals
+    - AXI_RAM. UberDDR3 simulation would be possible but too slow
+    - SDHCI
+    - DMA
+    - More to come: USB, etc.
+- Console interaction with simulation possible through pseudo terminal (PTS)
+- Boot sequence: Bootrom (optional), OpenSBI, u-boot (optional, Linux
+- Boot media: preloaded RAM, simulated SD card. All binaries generated in Yocto.
+- Many options configuratble in variables/parameters
+
+
+
+
+## General remarks
+
 - Main Makefile: sim/Makefile.cvwsoc. Much of it is LLM generated so not the most readable.
 - All boot stages are possible to run: bootrom, OpenSBI, u-boot, Kernel, userspace.
 - Only RAM and a potential 'Dummy' peripheral are added to the Verilator testbench for now. Any extra peripheral to be tested can be connected as the 'dummy' peripheral (this needs DTB override and potentially other changes in the binaries/images).
@@ -280,14 +297,14 @@ Different combinations are possible using Yocto images all of them work for 32 a
     - Generate 'preloaded' image to use later: speed up simulation by preloading all RAM contents.
     - This is the default for Verilator runs.
     - Boot preloaded image in QEMU
-- Trace verilation run: TRACE=1, TRACE_MODE=sv (to be improved)
+- Trace verilation run: TRACE=0 (no tracing), TRACE=1 (runtime tracing start/stop trigger with kill -USR1), TRACE=sv (trace from the beginning of simulation until simulation is stopped). .fst files are generated.
 - Some things can make sense to override for testing
     - override DTB in Verilator run (overwrites content in preloaded image)
     - Override u-booot DTB in Verilator run
     - override DEPLOY folder
-    - etc
     - bus width (AHBW=64)
     - Trace filename prefix
+    - etc
 - etc
 
 
@@ -303,13 +320,18 @@ The same but including u-boot:
 $ make -f sim/verilator/Makefile.cvwsoc clean qemu-uboot
 ```
 
-Run Linux verilation for RV64 with SD card emulation, starting from bootrom and overriding OpenSBI/Linux DTB on 'Verilator' runtime stage. 'fpgagenessys2soc' config is used:
+Run Linux verilation for RV64 with SD card emulation, starting from bootrom and overriding OpenSBI/Linux DTB on 'Verilator' runtime stage and generate a trace since boot. 'fpgagenesys2soc' config is used:
 ```
-$ make -f sim/verilator/Makefile.cvwsoc clean run-cvwsoc-linux RV32=0 SDHCI=1 CVWSOC_VERILATOR_DTB=/tmp/wally-virtsoc-linux.dtb.dts.dtb  BOOTROM=1 CONFIG=fpgagenesys2soc TRACE=1 TRACE_MODE=sv
+$ make -f sim/verilator/Makefile.cvwsoc clean run-cvwsoc-linux RV32=0 SDHCI=1 CVWSOC_VERILATOR_DTB=/tmp/wally-virtsoc-linux.dtb.dts.dtb  BOOTROM=1 CONFIG=fpgagenesys2soc TRACE=sv
+```
+
+Run Linux verilation for RV32W64 (fastest) with SD card emulation (using image generated in Yocto), with DMA peripheral connected, skipping bootrom, jumping from OpenSBI to Linux (skipping u-boot), doing parallel build for the testbench. 'fpgagenesys2rv32w64soc' config is used:
+```
+$ make -f sim/verilator/Makefile.cvwsoc clean sim-fast SDHCI=1 DMA=1 TRACE=1
 ```
 
 Remarks:
-- iDMA can be enabled manually in the testbench
+- 'clean' is not needed when testebench rebuild is not necessary. The Makefile should normally track all necessary dependencies (and rebuild when needed)
 - Models for other peripherals will be integrated later.
 
 # Future steps
