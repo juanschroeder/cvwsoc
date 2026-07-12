@@ -140,15 +140,19 @@ Console:
 
 ## Doom on the Genesys 2 (with I2S audio)
 
-Run:
+
     # fbdoom -iwad /usr/share/games/doom/freedm.wad -timedemo demo4
  
-Hardware used for audio: PCM5102A DAC board (https://www.amazon.de/-/en/DollaTek-PCM5102A-Digital-Converter-Raspberry/dp/B07PMGGMJF).
+Extra hardware used for audio: 
+
+- PCM5102A DAC board (https://www.amazon.de/-/en/DollaTek-PCM5102A-Digital-Converter-Raspberry/dp/B07PMGGMJF).
 - No SCL neeeded (derived)
 - XMT => 3.3V (unmute)
 - Headphones sound loud enough at full volume
 
+
 Remarks:
+
 - Tested only in RV32W64 config
 - Result: about 15.5 fps with UberDDR3 and about 14 fps with LiteDRAM
 - To be able to play with the keyboard the easiest is to start 'fbdoom' in the framebuffer console (with the USB keyboard) and not in the serial console
