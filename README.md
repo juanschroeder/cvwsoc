@@ -8,18 +8,17 @@ I've extended Core-V Wally core/SoC (https://github.com/openhwgroup/cvw) with ma
 - 32 / 64 bits CPUs, different configs
 - Yocto-based Linux images, u-boot, OpenSBI.
 - Open source IPs:
-    - Core-V Wally: CPU, GPIO, UART, PLIC, etc.
+    - Core-V Wally: CPU, GPIO, UART, PLIC, SPI
     - SDHCI (micro SD card boot)
     - DMA (MEM2MEM, MEM2DEV)
-    - USB 1.1,
-    - Ethernet,
-    - VGA,
-    - SPI,
-    - DDR2,
-    - DDR3 (LiteDRAM, UberDDR3),
-    - AXI,
-    - AXI Stream (Audio TX),
-    - I2S,
+    - USB 1.1
+    - Ethernet
+    - VGA
+    - DDR2
+    - DDR3 (LiteDRAM, UberDDR3)
+    - AXI
+    - AXI Stream (Audio TX)
+    - I2S
     - etc (more to come).
 - Simulation (Verilator)
     - Full SoC
