@@ -2,12 +2,31 @@
 
 Core-V Wally SoC (extended Core-V Wally)
 
-I've extended Core-V Wally core/SoC (https://github.com/openhwgroup/cvw) with additional components. on some FPGA boards I have available.
+I've extended Core-V Wally core/SoC (https://github.com/openhwgroup/cvw) with many additional IPs targeting some popular FPGA boards in order to run Yocto Linux images.
 
 ## Features
-- 32/64 bits CPUs
-- Yocto-based Linux images
-- Open source IPs: SDHCI, DMA, USB 1.1, Ethernet, VGA, SPI, DDR2, DDR3 (LiteDRAM, UberDDR3), etc. More to come.
+- 32 / 64 bits CPUs, different configs
+- Yocto-based Linux images, u-boot, OpenSBI.
+- Open source IPs:
+    - Core-V Wally: CPU, GPIO, UART, PLIC, etc.
+    - SDHCI (micro SD card boot)
+    - DMA (MEM2MEM, MEM2DEV)
+    - USB 1.1,
+    - Ethernet,
+    - VGA,
+    - SPI,
+    - DDR2,
+    - DDR3 (LiteDRAM, UberDDR3),
+    - AXI,
+    - AXI Stream (Audio TX),
+    - I2S,
+    - etc (more to come).
+- Simulation (Verilator)
+    - Full SoC
+    - Boot: bootrom, OpenSBI, u-boot and Linux support
+    - Core AXI bus infrastructure
+    - Peripherals (SDHCI, DMA, I2S, etc). More to come
+  
 
 ## Gateware (Vivado)
 
@@ -119,16 +138,30 @@ Console:
     timed 3623 gametics in 6945 realtics (18.258459 fps)
 
 
+## Doom on the Genesys 2 (with I2S audio)
 
-## Doom on the Genesys 2 (live, with sound)
+Run:
+    # fbdoom -iwad /usr/share/games/doom/freedm.wad -timedemo demo4
+ 
+Hardware used for audio: PCM5102A DAC board (https://www.amazon.de/-/en/DollaTek-PCM5102A-Digital-Converter-Raspberry/dp/B07PMGGMJF).
+- No SCL neeeded (derived)
+- XMT => 3.3V (unmute)
+- Headphones sound loud enough at full volume
 
-For the moment, the only sound configuration tested is with an USB audio card.
+Remarks:
+- Tested only in RV32W64 config
+- Result: about 15.5 fps with UberDDR3 and about 14 fps with LiteDRAM
+- To be able to play with the keyboard the easiest is to start 'fbdoom' in the framebuffer console (with the USB keyboard) and not in the serial console
+
+
+## Doom on the Genesys 2 (live, with USB audio)
+
+Another sound configuration that can be used is with an USB audio card.
 
 Setup tested:
 - USB audio card USB 1.1 compatible (Tested: 'C-Media Electronics Inc. USB Audio Device')
 - USB keyboard (e.g. standard Logitech wireless USB keyboard)
 
-To be able to play with the keyboard the easiest is to start 'fbdoom' in the framebuffer console (with the USB keyboard) and not in the serial console
 
 Command:
 ```
@@ -136,7 +169,7 @@ SDL_AUDIODRIVER=dsp SDL_PATH_DSP=/dev/dsp SDL_AUDIO_BUFFER_SIZE=4096 fbdoom -iwa
 ```
 
 Remarks:
-- Result: about 12 fps. To be improved.
+- Result: about 12 fps
 - Using default audio device (e.g.AUDIODEV=hw:0,0) gives worse performance
 
 
@@ -201,18 +234,19 @@ Console: (using old Buildroot image => This will be updated soon)
 Boards supported and/or planned :
 - Supported:
   - Digilent Nexys A7-100T (does not fit in an A35T)
-  - Genenesys 2
+  - Digilent Genesys 2
 - Coming soon:
   - Qmtech Kintex-7
  
 Necessary extra hardware:
 - Digilent micro SD card PMOD (only for Nexys A7; will be removed soon)
-- USB PMOD
+- Optional: USB PMOD
   - https://github.com/Dolu1990/pmod_usb_host_x4/tree/main
   - https://github.com/nand2mario/usb_host_pmod
   - This store made it avaiable for purchase in 2025 when I requested it (no stock now?):
       - [https://www.aliexpress.com/store/5940159](https://www.aliexpress.com/store/5940159)
       - Alternative: [https://nl.aliexpress.com/item/1005010786670759.html](https://www.aliexpress.com/item/1005010786670759.html)
+- Optional: PCM5102A DAC or similar. E.g. this one was tested [DollaTek-PCM5102A](https://www.amazon.de/-/en/DollaTek-PCM5102A-Digital-Converter-Raspberry/dp/B07PMGGMJF)
 - Optional: USB keyboard (tried Logitech wireless Keyboard)
 - Optional: USB audio card. Tested: https://www.amazon.de/-/en/SABRENT-External-Headphone-Adapter-AU-MMSA/dp/B00IRVQ0F8/
 - Remark: Qmtech Kintex-7 board has no peripherals and will need more PMODs.
@@ -271,7 +305,7 @@ It allows running different combinations of simulation/emulation, boot stages an
 
 
 
-## General remarks
+## General simulation remarks
 
 - Main Makefile: sim/Makefile.cvwsoc. Much of it is LLM generated so not the most readable.
 - All boot stages are possible to run: bootrom, OpenSBI, u-boot, Kernel, userspace.
@@ -309,7 +343,7 @@ Different combinations are possible using Yocto images all of them work for 32 a
 - etc
 
 
-## Examples
+## Simulation examples
 
 Test Yocto OpenSBI and Kernel generated image in QEMU:
 ```
@@ -340,20 +374,17 @@ Remarks:
 Future plans:
 - Lots of cleanup needed
 - OpenXC7 build improvements (currently at 12.5 MHz)
-- AXI Stream
-- I2S
 - Nexys A7:
-    - Add DAC for Doom audio (with limited on-board option)
     - Add SDHCI support
+    - update with latest SoC infrastructure
 - Genesys 2:
-    - I2S audio support
     - HDMI support
     - mini display support
 - Boards:
     - Qmtech Kintex-7 support
     - GateMate board?
     - Other smaller FPGA boards
-- Remove all remaining Xilinx dependencies
+- Remove remaining remaining Xilinx dependencies
 - JTAG debug interface?
 - Renode co-simulation
 - Other IPs: watchdog, gigabit Ethernet, USB 3.0
