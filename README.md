@@ -28,7 +28,6 @@ I've extended Core-V Wally core/SoC (https://github.com/openhwgroup/cvw) with ma
 
 ## Memory map
 
-The ranges below are inclusive (`end = base + range`). Every declared region is shown; configuration-specific enable/disable flags are intentionally omitted. In the bus columns, **endpoint** identifies the peripheral's native interface and **via** identifies a bridge or upstream transport.
 
 | Region | Base address | End address | Size | Type | Access | Bus | Interconnect | IRQ | Status | Notes |
 |:---|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---|
