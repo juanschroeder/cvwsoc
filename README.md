@@ -416,9 +416,6 @@ Remarks:
 Future plans:
 - Lots of cleanup needed
 - OpenXC7 build improvements (currently at 12.5 MHz)
-- Nexys A7:
-    - Add SDHCI support
-    - update with latest SoC infrastructure
 - Genesys 2:
     - HDMI support
     - mini display support
