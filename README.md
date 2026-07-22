@@ -211,60 +211,73 @@ Remarks:
 - Using default audio device (e.g.AUDIODEV=hw:0,0) gives worse performance
 
 
-## Doom on the Nexys A7 [Deprecated: needs to be updated for Yocto images]
+## Doom on the Nexys A7 (live with audio)
 
-See the video: 
+Live playing with audio (no demo):
 
-[![Watch the video](https://img.youtube.com/vi/7HBiZ0tc0Uk/default.jpg)](https://youtu.be/7HBiZ0tc0Uk)
-
-
-Console: (using old Buildroot image => This will be updated soon)
-
-    # /usr/bin/doom-short-demo.sh
-    Starting D_DoomMain
-                                FDoom 0.1
-    Z_Init: Init zone memory allocation daemon. 
-    zone memory: 0x7fffbd887010, 600000 allocated for zone
-    Using /mnt/.fdoom.tar/ for configuration and saves
-    V_Init: allocate screens.
-    M_LoadDefaults: Load system defaults.
-    saving config in /mnt/.fdoom.tar/default.cfg
-    W_Init: Init WADfiles.
-    adding /usr/share/games/doom/doom1.wad
-    adding /usr/share/games/doom/bounce1.lmp
-    Playing demo /usr/share/games/doom/bounce1.lmp.
-    Using /mnt/.fdoom.tar/savegame/ for savegames
-    ===========================================================================
-                                DOOM Shareware
-    ===========================================================================
-    FDoom is free software, covered by the GNU General Public
-    License.  There is NO warranty; not even for MERCHANTABILITY or FITNESS
-    FOR A PARTICULAR PURPOSE. You are welcome to change and distribute
-    copies under certain conditions. See the source for more information.
-    ===========================================================================
-    I_Init: Setting up machine state.
-    M_Init: Init miscellaneous info.
-    R_Init: Init DOOM refresh daemon - ...................
-    P_Init: Init Playloop state.
-    S_Init: Setting up sound.
-    D_CheckNetGame: Checking network game status.
-    startskill 2  deathmatch: 0  startmap: 1  startepisode: 1
-    player 1 of 1 (1 nodes)
-    Emulating the behavior of the 'Doom 1.9' executable.
-    HU_Init: Setting up heads up display.
-    ST_Init: Init status bar.
-    I_InitGraphics: framebuffer: x_res: 320, y_res: 240, x_virtual: 320, y_virtual: 240, bpp: 16, grayscale: 0
-    I_InitGraphics: framebuffer: RGBA: 5650, red_off: 11, green_off: 5, blue_off: 0, transp_off: 0
-    I_InitGraphics: DOOM screen size: w x h: 320 x 200
-    I_InitGraphics: Auto-scaling factor: 1
-    101-key keyboard found.
-    Using keyboard on /dev/tty0.
-    Ready to read keycodes. Press Backspace to exit.
-    timed 558 gametics in 2845 realtics (6.864675 fps)
+[![Watch the video](https://img.youtube.com/vi/aWhnACIJtG4/default.jpg)](https://youtu.be/aWhnACIJtG4)
 
 
+```
+# fbdoom -iwad /usr/share/games/doom/freedm.wad
+```
 
-*Remark*: for now audio would need to be with a USB audio card (not tested, drivers not in the Kernel build).
+Console: 
+
+```
+# fbdoom -iwad /usr/share/games/doom/freedm.wad -nomusic -timedemo demo4
+Starting D_DoomMain
+                               FDoom 0.1
+Z_Init: Init zone memory allocation daemon. 
+zone memory: 0x94f2f010, 600000 allocated for zone
+Using /mnt/.fdoom.tar/ for configuration and saves
+V_Init: allocate screens.
+M_LoadDefaults: Load system defaults.
+saving config in /mnt/.fdoom.tar/default.cfg
+W_Init: Init WADfiles.
+ adding /usr/share/games/doom/freedm.wad
+ adding demo4.lmp
+ couldn't open demo4.lmp
+Playing demo demo4.lmp.
+Using /mnt/.fdoom.tar/savegame/ for savegames
+===========================================================================
+                                FreeDM
+===========================================================================
+ FDoom is free software, covered by the GNU General Public
+ License.  There is NO warranty; not even for MERCHANTABILITY or FITNESS
+ FOR A PARTICULAR PURPOSE. You are welcome to change and distribute
+ copies under certain conditions. See the source for more information.
+===========================================================================
+I_Init: Setting up machine state.
+[  365.168501] iis-idma-engine 10082000.dma-controller: cyclic: buf=0x82980000 buf_len=147456 period_len=12288 periods=12 hw_descs=12
+[  365.181881] idma issue: pending=1 current=c24d055c running=1 cyclic_active=1 stopping=0
+M_Init: Init miscellaneous info.
+ALSA lib /usr/src/debug/alsa-lib/1.2.14/src/pcm/pcm.c:8772:(snd_pcm_recover) underrun occurred
+[  366.290326] iis-idma-engine 10082000.dma-controller: cyclic: buf=0x82980000 buf_len=147456 period_len=12288 periods=12 hw_descs=12
+[  366.303686] idma issue: pending=1 current=c24d055c running=1 cyclic_active=1 stopping=0
+
+R_Init: Init DOOM refresh daemon - ...............................................
+P_Init: Init Playloop state.
+S_Init: Setting up sound.
+D_CheckNetGame: Checking network game status.
+startskill 2  deathmatch: 0  startmap: 1  startepisode: 1
+player 1 of 1 (1 nodes)
+Emulating the behavior of the 'Doom 1.9' executable.
+HU_Init: Setting up heads up display.
+ST_Init: Init status bar.
+I_InitGraphics: framebuffer: x_res: 320, y_res: 240, x_virtual: 320, y_virtual: 240, bpp: 16, grayscale: 0
+I_InitGraphics: framebuffer: RGBA: 5650, red_off: 11, green_off: 5, blue_off: 0, transp_off: 0
+I_InitGraphics: DOOM screen size: w x h: 320 x 200
+I_InitGraphics: Auto-scaling factor: 1
+101-key keyboard found.
+Using keyboard on /dev/tty0.
+Ready to read keycodes. Press Backspace to exit.
+```
+
+When running 'demo4' demo (-timedemo demo4):
+- With I2S audio: `timed 3623 gametics in 24058 realtics (5.270804 fps)`
+- Without audio: `timed 3623 gametics in 15822 realtics (8.014474 fps)`
+
 
 
 ## Boards supported
@@ -276,8 +289,7 @@ Boards supported and/or planned :
 - Coming soon:
   - Qmtech Kintex-7
  
-Necessary extra hardware:
-- Digilent micro SD card PMOD (only for Nexys A7; will be removed soon)
+Extra hardware:
 - Optional: USB PMOD
   - https://github.com/Dolu1990/pmod_usb_host_x4/tree/main
   - https://github.com/nand2mario/usb_host_pmod
@@ -287,6 +299,7 @@ Necessary extra hardware:
 - Optional: PCM5102A DAC or similar. E.g. this one was tested [DollaTek-PCM5102A](https://www.amazon.de/-/en/DollaTek-PCM5102A-Digital-Converter-Raspberry/dp/B07PMGGMJF)
 - Optional: USB keyboard (tried Logitech wireless Keyboard)
 - Optional: USB audio card. Tested: https://www.amazon.de/-/en/SABRENT-External-Headphone-Adapter-AU-MMSA/dp/B00IRVQ0F8/
+- Optional: Digilent micro SD card PMOD. Not needed anymore but will be needed for the Qmtech Kintex-7.
 - Remark: Qmtech Kintex-7 board has no peripherals and will need more PMODs.
 
 ## Features
@@ -308,17 +321,8 @@ Remarks:
 * USB does not work yet in u-boot in some targets
 
 
-## Build steps (Nexys A7) [Deprecated]
 
- I don't have an Arty A7 board, so the work was done on a Nexys A7 board: https://github.com/openhwgroup/cvw/pull/1613
 
- Repo/branch for gateware and software: https://github.com/juanschroeder/cvw/tree/cvwsoc
- 
- Gateware: 
- 
-     fpga/generator# make nexysa7
-     
- Buildroot: use 'wally_nexysa7_defconfig'
 
 
 
