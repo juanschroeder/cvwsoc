@@ -14,7 +14,7 @@ I've extended Core-V Wally core/SoC (https://github.com/openhwgroup/cvw) with ma
     - USB 1.1
     - Ethernet
     - VGA
-    - DDR2
+    - DDR2 (LiteDRAM)
     - DDR3 (LiteDRAM, UberDDR3)
     - AXI
     - AXI Stream (Audio TX)
