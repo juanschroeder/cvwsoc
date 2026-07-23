@@ -2,7 +2,7 @@
 
 Core-V Wally SoC (extended Core-V Wally)
 
-I've extended Core-V Wally core/SoC (https://github.com/openhwgroup/cvw) with many additional IPs targeting some popular FPGA boards in order to run Yocto Linux images.
+I've extended Core-V Wally core/SoC (https://github.com/openhwgroup/cvw) with many additional Open Source IPs targeting some popular FPGA boards in order to run Yocto Linux images.
 
 ## Features
 - 32 / 64 bits CPUs, different configs
