@@ -79,6 +79,7 @@ Where TARGET can be:
 - genesys2socrv32min:            Smaller RV32 variant
 - genesys2socrv32w64:            RV32 variant with 64-bit bus
 - nexysa7soc:                    Nexys A7 build
+- nexysa7rv32w64soc:             RV32 variant with 64-bit bus
 - etc
 
 Remarks:
