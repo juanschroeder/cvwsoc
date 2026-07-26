@@ -173,6 +173,9 @@ Console:
     timed 3623 gametics in 6945 realtics (18.258459 fps)
 
 
+**UPDATE**: latest version performance without audio and UberDDR3: about **19.8 fps**.
+
+
 ## Doom on the Genesys 2 (with I2S audio)
 
 
@@ -187,9 +190,10 @@ Extra hardware used for audio:
 
 
 Remarks:
-
 - Tested only in RV32W64 config
-- Result: about 15.5 fps with UberDDR3 and about 14 fps with LiteDRAM
+- Performance:
+  - With **UberDDR3**: about **16.5 fps**
+  - With **LiteDRAM**: about **14.5 fps**
 - To be able to play with the keyboard the easiest is to start 'fbdoom' in the framebuffer console (with the USB keyboard) and not in the serial console
 
 
