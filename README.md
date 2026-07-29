@@ -332,6 +332,10 @@ Remarks:
 
 # Co-simulation (Renode)
 
+```
+$ make -f cosim/Makefile.hifive-cvw cosim-clean cosim-fast
+```
+
 The AXI bus infrastructure can be co-simulated with a Renode SoC (HiFive FU540). Useful for quick iterations.
 
 Renode HIFive FU540 <--[AXI]--> CVWSOC_AXI
