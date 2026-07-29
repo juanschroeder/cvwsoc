@@ -2,7 +2,8 @@
 
 Core-V Wally SoC (extended Core-V Wally)
 
-I've extended Core-V Wally core/SoC (https://github.com/openhwgroup/cvw) with many additional Open Source IPs targeting some popular FPGA boards in order to run Yocto Linux images.
+Extended Core-V Wally core/SoC (https://github.com/openhwgroup/cvw) with many additional Open Source IPs targeting some popular FPGA boards in order to run Yocto Linux images. 
+Simulation (Verilator) and co-simulation (Renode) supported.
 
 ## Features
 - 32 / 64 bits CPUs, different configs
@@ -25,6 +26,9 @@ I've extended Core-V Wally core/SoC (https://github.com/openhwgroup/cvw) with ma
     - Boot: bootrom, OpenSBI, u-boot and Linux support
     - Core AXI bus infrastructure
     - Peripherals (SDHCI, DMA, I2S, etc). More to come
+- Co-simulation (Renode)
+    - HiFive FU540 SoC (Renode) with (verilated) CVWSoC AXI component, booting custom CVWSoC Yocto image
+    - MMIO working but it's slow. Useful for fast, non-cycle accurate iterations
 
 ## Memory map
 
@@ -326,8 +330,22 @@ Remarks:
 * USB does not work yet in u-boot in some targets
 
 
+# Co-simulation (Renode)
 
+The AXI bus infrastructure can be co-simulated with a Renode SoC (HiFive FU540). Useful for quick iterations.
 
+Renode HIFive FU540 <--[AXI]--> CVWSOC_AXI
+
+Remarks:
+- simulation speed is limited: AXI clock is set to 2 MHz. Faster is possible but simulation is slower.
+- much faster than Verilation and including peripherals. **Shell prompt in 2-3 minutes**.
+- Tested:
+    - iDMA: dmatest and cyclic dma audio (for speaker-test proper audio clock must be uncommented)
+    - SDHCI (test image simulated by default)
+    - Ethernet: just Kernel initialization
+    - I2S: speaker-test possible when audio clock is enabled/connected (slower simulation), even with 2 MHz AXI bus.
+    - USB: initialization works, proper simulation might be possible (and slow) later.
+    - VGA: not tested, needs proper initialization (according to bus speed).
 
 
 
