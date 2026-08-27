@@ -969,4 +969,7 @@ root@cvwsoc-nexysa7rv32:~#
 - Manta: https://github.com/fischermoseley/manta
 - OpenXC7: https://github.com/openxc7
 - Renode: https://github.com/renode/renode
+- Cheshire: https://github.com/pulp-platform/cheshire
+- CVA6: https://github.com/pulp-platform/cva6 / https://github.com/openhwgroup/cva6
+- Vexriscv: https://github.com/spinalhdl/vexriscv
 - etc
