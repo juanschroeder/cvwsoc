@@ -6,7 +6,8 @@ Extended Core-V Wally core/SoC (https://github.com/openhwgroup/cvw) with many ad
 Simulation (Verilator) and co-simulation (Renode) supported.
 
 ## Features
-- 32 / 64 bits CPUs, different configs
+- 32 / 64 bits CPUs, customizable
+    - Wally, CVA6, Veriscv (RV32 only)
 - Yocto-based Linux images, u-boot, OpenSBI.
 - Open source IPs:
     - Core-V Wally: CPU, GPIO, UART, PLIC, SPI
@@ -82,8 +83,13 @@ Where TARGET can be:
 - genesys2socrv32:               RV32 variant
 - genesys2socrv32min:            Smaller RV32 variant
 - genesys2socrv32w64:            RV32 variant with 64-bit bus
+- genesys2cva6soc:               CVA6 build for Genesys 2
+- genesys2cva6rv32w64soc:        CV32A6 build for Genesys 2
+- genesys2vexsoc:                Vexriscv build for Genesys 2 (RV32)
 - nexysa7soc:                    Nexys A7 build
 - nexysa7rv32w64soc:             RV32 variant with 64-bit bus
+- nexysa7cva6rv32w64soc:         CV32A6 build for Nexys A7
+- nexysa7vexsoc:                 Vexriscv build for Nexys A7 (RV32)
 - etc
 
 Remarks:
@@ -432,6 +438,16 @@ $ make -f sim/verilator/Makefile.cvwsoc clean run-cvwsoc-linux RV32=0 SDHCI=1 CV
 Run Linux verilation for RV32W64 (fastest) with SD card emulation (using image generated in Yocto), with DMA peripheral connected, skipping bootrom, jumping from OpenSBI to Linux (skipping u-boot), doing parallel build for the testbench. 'fpgagenesys2rv32w64soc' config is used:
 ```
 $ make -f sim/verilator/Makefile.cvwsoc clean sim-fast SDHCI=1 DMA=1 TRACE=1
+```
+
+Run simulation for CVA6 RV64 (add RV32=1 for CV32A6):
+```
+$ make -f sim/verilator/Makefile.cvwsoc  CVA6=1 clean sim-fast
+```
+
+Run simulation for Vexriscv (RV32, 64-bits bus):
+```
+$ make -f sim/verilator/Makefile.cvwsoc  VEX=1 clean run-cvwsoc-linux -j6
 ```
 
 Remarks:
