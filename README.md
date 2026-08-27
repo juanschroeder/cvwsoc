@@ -1,6 +1,6 @@
 # cvwsoc README (WIP)
 
-Core-V Wally SoC (extended Core-V Wally)
+Core-V Wally SoC (extended Core-V Wally) with CVA6 and Vexriscv alternative CPUs.
 
 Extended Core-V Wally core/SoC (https://github.com/openhwgroup/cvw) with many additional Open Source IPs targeting some popular FPGA boards in order to run Yocto Linux images. 
 Simulation (Verilator) and co-simulation (Renode) supported.
