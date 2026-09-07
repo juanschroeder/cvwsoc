@@ -438,9 +438,9 @@ Run Linux verilation for RV64 with SD card emulation, starting from bootrom and 
 $ make -f sim/verilator/Makefile.cvwsoc clean run-cvwsoc-linux RV32=0 SDHCI=1 CVWSOC_VERILATOR_DTB=/tmp/wally-virtsoc-linux.dtb.dts.dtb  BOOTROM=1 CONFIG=fpgagenesys2soc TRACE=sv
 ```
 
-Run Linux verilation for RV32W64 (fastest) with SD card emulation (using image generated in Yocto), with DMA peripheral connected, skipping bootrom, jumping from OpenSBI to Linux (skipping u-boot), doing parallel build for the testbench. 'fpgagenesys2rv32w64soc' config is used:
+Run Linux verilation for RV32W64 (fastest) with SD card emulation (using image generated in Yocto), with DMA peripheral connected, skipping bootrom, jumping from OpenSBI to Linux (skipping u-boot), doing parallel build for the testbench and generating an .fst trace (since reset) 8 levels deep. 'fpgagenesys2rv32w64soc' config is used:
 ```
-$ make -f sim/verilator/Makefile.cvwsoc clean sim-fast SDHCI=1 DMA=1 TRACE=1
+$ make -f sim/verilator/Makefile.cvwsoc clean sim-fast SDHCI=1 DMA=1 TRACE=1 TRACE_DEPTH=8
 ```
 
 Run simulation for CVA6 RV64 (add RV32=1 for CV32A6):
@@ -466,18 +466,15 @@ Future plans:
     - HDMI support
     - mini display support
 - Boards:
-    - Qmtech Kintex-7 support
+    - Qmtech Kintex-7 (partially supported)
     - GateMate board?
     - Other smaller FPGA boards
 - Remove remaining remaining Xilinx dependencies
 - JTAG debug interface?
-- Renode co-simulation
-- Other IPs: watchdog, gigabit Ethernet, USB 3.0
+- Other IPs: watchdog, gigabit Ethernet, USB 2.0/3.0
 - Other PMODs:
     - display
     - HDMI?
-- Refactor top files for better customisation
-- CPU frequency speedup
 - etc
 
 # Example boot log (Nexys A7 RV32)
