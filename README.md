@@ -6,8 +6,8 @@ Extended Core-V Wally core/SoC (https://github.com/openhwgroup/cvw) with many ad
 Simulation (Verilator) and co-simulation (Renode) supported.
 
 ## Features
-- 32 / 64 bits CPUs, customizable
-    - Wally, CVA6, Veriscv (RV32 only)
+- 32 / 64 bits configurable CPUs 
+    - Wally, CVA6, CVA6S+, Veriscv
 - Yocto-based Linux images, u-boot, OpenSBI.
 - Open source IPs:
     - Core-V Wally: CPU, GPIO, UART, PLIC, SPI
@@ -23,7 +23,7 @@ Simulation (Verilator) and co-simulation (Renode) supported.
     - I2S
     - etc (more to come).
 - Simulation (Verilator)
-    - Full SoC
+    - SoC
     - Boot: bootrom, OpenSBI, u-boot and Linux support
     - Core AXI bus infrastructure
     - Peripherals (SDHCI, DMA, I2S, etc). More to come
@@ -86,9 +86,12 @@ Where TARGET can be:
 - genesys2cva6soc:               CVA6 build for Genesys 2
 - genesys2cva6rv32w64soc:        CV32A6 build for Genesys 2
 - genesys2vexsoc:                Vexriscv build for Genesys 2 (RV32)
+- genesys2cva6spsoc              CVA6S+
+- genesys2cva6sprv32w64soc       CV32A6S+
 - nexysa7soc:                    Nexys A7 build
 - nexysa7rv32w64soc:             RV32 variant with 64-bit bus
 - nexysa7cva6rv32w64soc:         CV32A6 build for Nexys A7
+- nexysa7cva6sprv32w64soc        CV32A6S+
 - nexysa7vexsoc:                 Vexriscv build for Nexys A7 (RV32)
 - etc
 
