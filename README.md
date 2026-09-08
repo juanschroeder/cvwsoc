@@ -30,6 +30,7 @@ Simulation (Verilator) and co-simulation (Renode) supported.
 - Co-simulation (Renode)
     - HiFive FU540 SoC (Renode) with (verilated) CVWSoC AXI component, booting custom CVWSoC Yocto image
     - MMIO working but it's slow. Useful for fast, non-cycle accurate iterations
+- OpenXC7 (yosys + nexpnr-xilinx open source toolchain) build and image booting Linux in Genesys 2 (in progress). Currently only for Wally.
 
 ## Memory map
 
