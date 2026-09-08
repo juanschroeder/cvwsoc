@@ -109,6 +109,12 @@ cd fpga/generatorxc7
 make docker-bit
 ```
 
+Remarks:
+- For the 6.25 MHz CPU build use:  $ picocom -b 130208 /dev/ttyUSB0. 
+- This build still needs the old SD card (SPI mode) PMOD attached to the board
+- This build is not yet very 'stable'.
+- It doesn't use the new cvwsoc architecture either (needs to be updated).
+
 
 ## Software
 
