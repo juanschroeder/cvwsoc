@@ -72,14 +72,34 @@ Simulation (Verilator) and co-simulation (Renode) supported.
 
 Repo: https://github.com/juanschroeder/cvw/tree/cvwsoc
 
-Build:
+**Requirements**:
+- Run 'git submodule init && git submodule update'
+- Vivado installed
+- RISCV multilib toolchain installed. E.g.:   https://github.com/xpack-dev-tools/riscv-none-elf-gcc-xpack/releases/download/v14.3.0-1/xpack-riscv-none-elf-gcc-14.3.0-1-linux-x64.tar.gz
+That one needs override of CROSS_COMPILE=riscv-none-elf
+- Then in root folder:
+```
+export WALLY=$(pwd)
+export PATH=$WALLY/bin:$PATH
+export RISCV=YOUR_RV64_MULTILIB_TOOLCHAIN_PATH
+export PATH=$RISCV/bin:$PATH
+source YOUR_VIVADO_SETUP_SCRIPT.sh
+```
+
+**Build**:
 
 ```
 cd fpga/generator
-make TARGET
+make [TARGET]
 ```
 
-Where TARGET can be:
+For a different toolchain prefix:
+```
+$ make [TARGET]  CROSS_COMPILE=riscv-none-elf- ...
+```
+
+
+Where [TARGET] can be:
 - genesys2soc:                   Normal 64-bit Genesys 2 target
 - genesys2socrv32:               RV32 variant
 - genesys2socrv32min:            Smaller RV32 variant
@@ -427,6 +447,15 @@ Different combinations are possible using Yocto images all of them work for 32 a
     - etc
 - etc
 
+## Prerequisites
+
+- Add QEMU to path (qemu-system-riscv64)
+- add toolchain to path (and set CROSS_COMPILE accordingly)
+- add Verilator to path
+- Override CROSS_COMPILE and Yocto deploy folder in the command line if needed (see examples below). E.g.
+```
+$ make -f sim/verilator/Makefile.cvwsoc CVA6SP=1 RV32=1 CVWSOC_DEPLOY_DIR=/tmp/testyocto/ run-cvwsoc-linux CROSS_COMPILE=riscv-none-elf-
+```
 
 ## Simulation examples
 
