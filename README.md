@@ -49,7 +49,7 @@ Simulation (Verilator) and co-simulation (Renode) supported.
 |:---|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---|
 | Boot ROM | `0x0000_1000` | `0x0000_1FFF` | 4 KiB | Memory | R/X | AHB-Lite | AHB-Lite | — | — | |
 | SPI-mode SD-card controller | `0x0001_3000` | `0x0001_3FFF` | 4 KiB | MMIO | R/W, 32/64-bit | APB | AHB-Lite → APB | PLIC 9 | — | |
-| CLINT | `0x0200_0000` | `0x0200_FFFF` | 64 KiB | MMIO | R/W | APB | AHB-Lite → APB | Direct: MSI 3, MTI 7 | — | `MSIP + 0x0000`, `MTIMECMP + 0x4000`, `MTIME + 0xBFF8`. |
+| CLINT | `0x0200_0000` | `0x0200_FFFF` | 64 KiB | MMIO | R/W | APB | AHB-Lite → APB | Direct: MSI 3, MTI 7 | — |  |
 | PLIC | `0x0C00_0000` | `0x0FFF_FFFF` | 64 MiB | MMIO | R/W, 32-bit | APB | AHB-Lite → APB | Direct: SEI 9, MEI 11 | — | |
 | UART 16550 | `0x1000_0000` | `0x1000_0007` | 8 B | MMIO | R/W, 8-bit | APB | AHB-Lite → APB | PLIC 10 | — | |
 | SPI controller | `0x1004_0000` | `0x1004_0FFF` | 4 KiB | MMIO | R/W, 32-bit | APB | AHB-Lite → APB | PLIC 6 | — | |
@@ -60,14 +60,14 @@ Simulation (Verilator) and co-simulation (Renode) supported.
 | AXI USB OHCI controller | `0x100C_0000` | `0x100C_0FFF` | 4 KiB | MMIO | R/W, 8/16/32-bit | AXI4-Lite | AHB-Lite → AXI4 → AXI4-Lite | PLIC 14 | — | AXI4 master interface for DMA. |
 | AXI Ethernet | `0x100D_0000` | `0x100E_FFFF` | 128 KiB | MMIO / buffer | R/W, 8/16/32-bit | AXI4 | AHB-Lite → AXI4 | PLIC 15 | — | |
 | LiteDRAM CSR window | `0x100F_0000` | `0x100F_1FFF` | 8 KiB | MMIO | R/W, 8/16/32-bit | AXI4-Lite | AHB-Lite → AXI4 → AXI4-Lite | — | — | |
-| Wishbone island | `0x1100_0000` | `0x110F_FFFF` | 1 MiB | MMIO region | R/W, 8/16/32-bit | Wishbone | AHB-Lite → Wishbone | See subregions | — | Contains the Wishbone devices below. |
-| Wishbone Ethernet | `0x1100_0000` | `0x1100_3FFF` | 16 KiB | MMIO / buffer | R/W, 8/16/32-bit | Wishbone | AHB-Lite → Wishbone | PLIC 12 | — | CSR space begins at offset `0x2000`. |
+| Wishbone island | `0x1100_0000` | `0x110F_FFFF` | 1 MiB | MMIO region | R/W, 8/16/32-bit | Wishbone | AHB-Lite → Wishbone | See subregions | — | Wishbone devices. |
+| Wishbone Ethernet | `0x1100_0000` | `0x1100_3FFF` | 16 KiB | MMIO / buffer | R/W, 8/16/32-bit | Wishbone | AHB-Lite → Wishbone | PLIC 12 | — | CSR at offset `0x2000`. |
 | Wishbone UART 16550 | `0x1100_4000` | `0x1100_4FFF` | 4 KiB | MMIO | R/W, 8/16/32-bit | Wishbone | AHB-Lite → Wishbone | PLIC 11 | — | |
 | Wishbone stub | `0x1100_5000` | `0x1100_5FFF` | 4 KiB | MMIO | R/W, 8/16/32-bit | Wishbone | AHB-Lite → Wishbone | — | — | |
 | AXI dummy/test peripheral | `0x2000_0000` | `0x2003_FFFF` | 256 KiB | MMIO / test | R/W, 8/16/32-bit | AXI4 | AHB-Lite → AXI4 | PLIC 16 | — | |
 | Uncore RAM | `0x8000_0000` | `0x87FF_FFFF` | 128 MiB | Memory | R/W/X | AHB-Lite | AHB-Lite | — | — | |
 | External memory / DDR | `0x8000_0000` | `0x87FF_FFFF` | 128 MiB | Memory | R/W/X | AXI4 | AHB-Lite → AXI4 | — | — | |
-| Uncached-memory PMA overlay | `0x8400_0000` | `0x840F_FFFF` | 1 MiB | Attribute | Inherits backing memory | Backing-memory bus | Same as backing memory | — | — | Marks the overlapping memory range as uncached. |
+| Uncached-memory PMA overlay | `0x8400_0000` | `0x840F_FFFF` | 1 MiB | Attribute | Inherits backing memory | Backing-memory bus | Same as backing memory | — | — | Overlapping range as uncached. |
 | iDMA descriptor-64 frontend | `0x1008_0000` | `0x1008_0FFF` | 4 KiB | MMIO | R/W, 8/16/32/64-bit | AXI4 | AHB-Lite → AXI4 | PLIC 13 | **Disabled** | |
 | iDMA register-64 frontend | `0x1008_1000` | `0x1008_1FFF` | 4 KiB | MMIO | R/W, 8/16/32-bit | AXI4 | AHB-Lite → AXI4 | PLIC 13 | **Disabled** | |
 | DTIM | `0x8000_0000` | `0x807F_FFFF` | 8 MiB | Memory | R/W | Core-local | LSU local interface | — | **Disabled** | Bypasses the system buses. |
