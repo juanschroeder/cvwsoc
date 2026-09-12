@@ -402,6 +402,7 @@ Remarks:
 # Simulation (QEMU, Verilator)
 
 It allows running different combinations of simulation/emulation, boot stages and boot media.
+You can use Linux shell using the created /dev/pts/NN port and a serial port tool (e.g. picocom).
 
 ## Summary
 - Simulate base SoC + real bus infrastructure + some AXI peripherals
