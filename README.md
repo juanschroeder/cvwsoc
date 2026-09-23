@@ -8,6 +8,8 @@ Gateware: https://github.com/juanschroeder/cvw/tree/cvwsoc
 Software: https://github.com/juanschroeder/kas-cvwsoc
 
 
+![Architecture](Cvwsoc_arch.png)
+
 ## Intro
 
 
@@ -41,6 +43,10 @@ Simulation (Verilator) and co-simulation (Renode) supported.
     - HiFive FU540 SoC (Renode) with (verilated) CVWSoC AXI component, booting custom CVWSoC Yocto image
     - MMIO working but it's slow. Useful for fast, non-cycle accurate iterations
 - OpenXC7 (yosys + nexpnr-xilinx open source toolchain) build and image booting Linux in Genesys 2 (in progress). Currently only for Wally.
+
+
+
+
 
 ## Memory map
 
@@ -1011,6 +1017,7 @@ root@cvwsoc-nexysa7rv32:~#
 - LiteDRAM: https://github.com/enjoy-digital/litedram, https://github.com/enjoy-digital/litex
 - UberDDR3: https://github.com/AngeloJacobo/UberDDR3
 - iDMA: https://github.com/pulp-platform/iDMA
+- i2s2: https://github.com/Digilent/Pmod-I2S2.git
 - Verilator: https://github.com/verilator/verilator
 - QEMU: https://github.com/qemu/QEMU
 - Manta: https://github.com/fischermoseley/manta
