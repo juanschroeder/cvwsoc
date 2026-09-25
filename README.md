@@ -403,6 +403,19 @@ Remarks:
     - USB: initialization works, proper simulation might be possible (and slow) later.
     - VGA: not tested, needs proper initialization (according to bus speed).
 
+## Tracing verilated part
+
+Build with tracing enabled, e.g.:
+```
+make -f cosim/Makefile.hifive-cvw  cosim-fast TRACE=1 TRACE_DEPTH=8
+```
+
+Trigger tracing before testing a specific feature:
+```
+kill -USR1 $(pgrep Vhifive)
+```
+That triggers tracing (stopped with -USR2 or automatically on asserts) and creates a trace in /tmp. See log for the specific filename.
+
 
 
 # Simulation (QEMU, Verilator)
